@@ -1,0 +1,32 @@
+name: Build by  fireworld & Test
+on:
+  workflow_dispatch:
+jobs:
+  Test:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    steps:
+    - name: Check out source code
+      uses: actions/checkout@v4
+
+    - name: Build project
+      env:
+          LOOP_KEY_ALIAS: ${{ secrets.LOOP_KEY_ALIAS }}
+          LOOP_KEY_PASSWORD: ${{ secrets.LOOP_KEY_PASSWORD }}
+          LOOP_STORE_PASSWORD: ${{ secrets.LOOP_STORE_PASSWORD }}
+          LOOP_KEY_STORE: ${{ github.workspace }}/key.jks
+      run: 
+        echo ${{ secrets.LOOP_SIGNKEY }} | base64 --decode > ${{ github.workspace }}/key.jks
+        ./build.sh build
+
+    - name: Run Android tests
+      run: ./build.sh android-tests-parallel 28 29 30 32 33 34
+
+    - name: Upload artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: |
+          build/*log
+          uhabits-android/build/outputs
