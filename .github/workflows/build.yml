@@ -70,4 +70,4 @@ jobs:
           prerelease: false
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            uhabits-android/build/outputs/apk/release/
+            uhabits-android/build/outputs/apk/release/*.apk
