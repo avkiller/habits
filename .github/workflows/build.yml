@@ -15,10 +15,14 @@ jobs:
           LOOP_KEY_PASSWORD: ${{ secrets.LOOP_KEY_PASSWORD }}
           LOOP_STORE_PASSWORD: ${{ secrets.LOOP_STORE_PASSWORD }}
           LOOP_KEY_STORE: ${{ github.workspace }}/key.jks
+          
       run: |
+        VERSION=$(grep versionName uhabits-android/build.gradle.kts | sed -e 's/.*"\([^"]*\)".*/\1/g')
         echo ${{ secrets.LOOP_SIGNKEY }} | base64 --decode > ${{ github.workspace }}/key.jks
-        ./gradlew app:assembleRelease
-
+        ./gradlew uhabits-android:assembleRelease
+        cp -v \
+            uhabits-android/build/outputs/apk/release/uhabits-android-release.apk \
+            uhabits-android/build/loop-"$VERSION"-release.apk
 
     - name: Upload artifacts
       if: always()
@@ -26,4 +30,4 @@ jobs:
       with:
         name: build
         path: |
-          app/build/outputs/apk/release
+          uhabits-android/build
