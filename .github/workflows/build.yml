@@ -15,7 +15,7 @@ jobs:
           LOOP_KEY_PASSWORD: ${{ secrets.LOOP_KEY_PASSWORD }}
           LOOP_STORE_PASSWORD: ${{ secrets.LOOP_STORE_PASSWORD }}
           LOOP_KEY_STORE: ${{ github.workspace }}/key.jks
-      run: 
+      run: |
         echo ${{ secrets.LOOP_SIGNKEY }} | base64 --decode > ${{ github.workspace }}/key.jks
         ./build.sh build
 
