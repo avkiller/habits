@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Álinson Santos Xavier <git@axavier.org>
+ * Copyright (C) 2016-2025 Álinson Santos Xavier <git@axavier.org>
  *
  * This file is part of Loop Habit Tracker.
  *
@@ -44,8 +44,8 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        versionCode = 20300
-        versionName = "2.3.0"
+        versionCode = 20301
+        versionName = "2.3.1"
         minSdk = 28
         targetSdk = 36
         applicationId = "com.fireworld.uhabits"
