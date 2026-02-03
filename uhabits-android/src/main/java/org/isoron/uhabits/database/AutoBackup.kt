@@ -33,7 +33,7 @@ class AutoBackup(private val context: Context) {
 
     private val backupPattern = Regex("^Loop Habits Backup .+\\.db$")
 
-    fun run(keep: Int = 5) {
+    fun run(keep: Int = 3) {
         Log.i("AutoBackup", "Starting automatic backups...")
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val uriString = prefs.getString("publicBackupFolder", null)
